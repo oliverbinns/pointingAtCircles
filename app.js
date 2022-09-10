@@ -64,6 +64,7 @@ outerLabel.enter().append("text")
   .text(d => Math.round(d*100)/100);
 
 
+// Simple lines - uncomment to show
 
 // var lines = svg.selectAll("line")
 //   .data(points);
