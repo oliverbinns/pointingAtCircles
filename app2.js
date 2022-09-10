@@ -6,24 +6,21 @@ var svg  = d3.select("svg#circleTest2");
 
 var centreRadius = 10;
 
+
+// Add centre circle
 var centre = svg.selectAll("circle#centrePoint")
   .data([0]);
 
-centre.exit().remove();
-
-var centreNew = centre.enter().append("circle");
-centre = centreNew.merge(centre);
-
-centre
+entre.enter().append("circle")
   .attr("id", "centrePoint")
-  .attr("cx", svgWidth / 2)
-  .attr("cy", svgWidth / 2)
+  .attr("cx", svgCentre)
+  .attr("cy", svgCentre)
   .attr("fill", "red")
   .attr("r", centreRadius);
 
 
 
-
+// Make 13 points
 var n = 13;
 var ang = 2 * Math.PI / n;
 
@@ -34,7 +31,6 @@ for(var i=0; i<n; i++){
     y: svgCentre + (outerDistance * Math.cos(i*ang)),
   });
 }
-
 
 for(var point of points){
   point.dx = svgCentre - point.x;
@@ -49,18 +45,15 @@ for(var point of points){
 }
 
 
+
 var outerDistance = 70;
 var outerRadius = 5;
 
+// Add outer circles
 var outer = svg.selectAll("circle.outerPoint")
   .data(points);
 
-outer.exit().remove();
-
-var outerNew = outer.enter().append("circle");
-outer = outerNew.merge(outer);
-
-outer
+outer.enter().append("circle")
   .attr("class", "outerPoint")
   .attr("cx", d => d.x)
   .attr("cy", d => d.y)
@@ -68,7 +61,7 @@ outer
   .attr("r", outerRadius);
 
 
-
+// Add lines from/to centre points
 var lines = svg.selectAll("line.centralLine")
   .data(points);
 
@@ -82,21 +75,20 @@ lines.enter().append("line")
 
 
 
-
+// Add lines from/to edges
 var lines = svg.selectAll("line.edgeLine")
   .data(points);
 
 lines.enter().append("line")
   .attr("class", "edgeLine")
-  .attr("x1", d => (svgWidth / 2) + (d.f * centreRadius * Math.sin(d.theta)))
-  .attr("y1", d => (svgWidth / 2) + (d.f * centreRadius * Math.cos(d.theta)))
+  .attr("x1", d => svgCentre + (d.f * centreRadius * Math.sin(d.theta)))
+  .attr("y1", d => svgCentre + (d.f * centreRadius * Math.cos(d.theta)))
   .attr("x2", d => d.x - (d.f * outerRadius * Math.sin(d.theta)))
   .attr("y2", d => d.y - (d.f * outerRadius * Math.cos(d.theta)))
   .attr("stroke", "green");
 
 
-
-
+// Add labels
 var labelDistance = outerRadius + 20;
 var outerLabel = svg.selectAll("text.outerLabel")
   .data(points);
