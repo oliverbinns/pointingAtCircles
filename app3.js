@@ -36,6 +36,8 @@ var svg  = d3.select("svg#circleTest3");
 
 var centreRadius = 10;
 
+
+// Define "centre" origin point at a random position
 var point_origin = {
   x: Math.random()*svgWidth,
   y: Math.random()*svgWidth,
@@ -43,7 +45,7 @@ var point_origin = {
 };
 
 
-
+// Draw centre point
 var centre = svg.selectAll("circle#centrePoint")
   .data([point_origin]);
 
@@ -58,6 +60,7 @@ centre.enter().append("circle")
 
 var outerRadius = 5;
 
+// Add points with random positions and radii
 var points = [];
 var n = 10;
 for(var i=0; i<n; i++){
@@ -73,7 +76,7 @@ for(var i=0; i<n; i++){
 
 }
 
-
+// Draw outer points
 var outer = svg.selectAll("circle.outerPoint")
   .data(points);
 
@@ -85,7 +88,7 @@ outer.enter().append("circle")
   .attr("r", d => d.r);
 
 
-
+// Add lines from/to centre points
 var lines = svg.selectAll("line.centralLine")
   .data(points);
 
@@ -99,7 +102,7 @@ lines.enter().append("line")
 
 
 
-
+// Add lines from/to edges
 var lines = svg.selectAll("line.edgeLine")
   .data(points);
 
@@ -111,8 +114,4 @@ lines.enter().append("line")
   .attr("y2", d => d.path.y2)
   .attr("marker-end", "url(#arrow)")
   .attr("stroke", "green");
-
-
-
-
 
